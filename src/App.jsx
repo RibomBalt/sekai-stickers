@@ -123,7 +123,11 @@ function App() {
       ctx.font = "20px sans-serif";
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
-      ctx.fillText("Pick a character 👇 to start", ctx.canvas.width / 2, ctx.canvas.height - 10);
+      ctx.fillText(
+        "Pick a character 👇 to start",
+        ctx.canvas.width / 2,
+        ctx.canvas.height - 10,
+      );
     }
   };
 
