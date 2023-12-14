@@ -6,20 +6,19 @@ import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import ButtonGroup from '@mui/material/ButtonGroup';
+import ButtonGroup from "@mui/material/ButtonGroup";
 import Switch from "@mui/material/Switch";
 import Picker from "./components/Picker";
 import Info from "./components/Info";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DownloadIcon from '@mui/icons-material/Download';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import InfoIcon from '@mui/icons-material/Info';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import DownloadIcon from "@mui/icons-material/Download";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import InfoIcon from "@mui/icons-material/Info";
 
 const { ClipboardItem } = window;
 
 function App() {
-
   const [infoOpen, setInfoOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -82,7 +81,7 @@ function App() {
         centerShift_x,
         centerShift_y,
         img.width * ratio,
-        img.height * ratio
+        img.height * ratio,
       );
       ctx.font = `${fontSize}px YurukaStd, SSFangTangTi`;
       ctx.lineWidth = 9;
@@ -157,14 +156,25 @@ function App() {
         <Typography variant="h3" style={{ "font-family": "YurukaStd" }}>
           Project Sekai Stickers Generator
         </Typography>
-        <Typography variant="subtitle1" style={{ "font-family": "YurukaStd" }} gutterBottom>
-          Created by <Link color="secondary" href="https://github.com/theoriginalayaka">TheOriginalAyaka</Link>
+        <Typography
+          variant="subtitle1"
+          style={{ "font-family": "YurukaStd" }}
+          gutterBottom
+        >
+          Created by{" "}
+          <Link color="secondary" href="https://github.com/theoriginalayaka">
+            TheOriginalAyaka
+          </Link>
           <IconButton aria-label="info" onClick={handleClickOpen} size="small">
             <InfoIcon fontSize="small" />
-          </IconButton>,
-          mirrored by <Link color="secondary" href="https://existentialis.me/@hegel">@hegel@existentialis.me</Link>.
+          </IconButton>
+          , mirrored by{" "}
+          <Link color="secondary" href="https://existentialis.me/@hegel">
+            @hegel@existentialis.me
+          </Link>
+          .
         </Typography>
-        <div style={{ "height": "1em" }} />
+        <div style={{ height: "1em" }} />
         <div className="vertical">
           <div className="canvas">
             <Canvas draw={draw} />
@@ -258,17 +268,29 @@ function App() {
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <div style={{ "height": "2em" }} />
-          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-            <Button variant="outlined" color="secondary" onClick={copy} startIcon={<ContentCopyIcon />}>
+          <div style={{ height: "2em" }} />
+          <ButtonGroup
+            color="secondary"
+            variant="contained"
+            aria-label="outlined primary button group"
+          >
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={copy}
+              startIcon={<ContentCopyIcon />}
+            >
               copy
             </Button>
-            <Button variant="contained" color="secondary" onClick={download} startIcon={<DownloadIcon />}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={download}
+              startIcon={<DownloadIcon />}
+            >
               download
             </Button>
           </ButtonGroup>
-
-
         </div>
       </div>
     </div>

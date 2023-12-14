@@ -1,5 +1,4 @@
-Note: This app is no longer maintained as I'm working on an upcoming app. Stay tuned for updates!
----
+## Note: This app is no longer maintained as I'm working on an upcoming app. Stay tuned for updates!
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]

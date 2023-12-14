@@ -64,8 +64,8 @@ export default function Info({ open, handleClose }) {
               <ListItem
                 button
                 onClick={() =>
-                (window.location.href =
-                  "https://www.reddit.com/r/ProjectSekai/comments/x1h4v1/after_an_ungodly_amount_of_time_i_finally_made/")
+                  (window.location.href =
+                    "https://www.reddit.com/r/ProjectSekai/comments/x1h4v1/after_an_ungodly_amount_of_time_i_finally_made/")
                 }
               >
                 <ListItemAvatar>
@@ -82,8 +82,8 @@ export default function Info({ open, handleClose }) {
               <ListItem
                 button
                 onClick={() =>
-                (window.location.href =
-                  "https://github.com/TheOriginalAyaka/sekai-stickers/graphs/contributors")
+                  (window.location.href =
+                    "https://github.com/TheOriginalAyaka/sekai-stickers/graphs/contributors")
                 }
               >
                 <ListItemAvatar>
@@ -105,8 +105,8 @@ export default function Info({ open, handleClose }) {
               <ListItem
                 button
                 onClick={() =>
-                (window.location.href =
-                  "https://github.com/TheOriginalAyaka/sekai-stickers")
+                  (window.location.href =
+                    "https://github.com/TheOriginalAyaka/sekai-stickers")
                 }
               >
                 <ListItemAvatar>
@@ -125,8 +125,7 @@ export default function Info({ open, handleClose }) {
               <ListItem
                 button
                 onClick={() =>
-                (window.location.href =
-                  "http://link.ayaka.one/stbot")
+                  (window.location.href = "http://link.ayaka.one/stbot")
                 }
               >
                 <ListItemAvatar>
