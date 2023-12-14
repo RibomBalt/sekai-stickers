@@ -435,7 +435,7 @@ function App() {
                 fontFamily="YurukaStd"
                 sx={{ flexBasis: "60%" }}
               >
-                Line spacing
+                Spacing
               </Typography>
               <Slider
                 value={spaceSize}
