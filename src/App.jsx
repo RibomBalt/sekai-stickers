@@ -183,6 +183,7 @@ function App() {
           <Link
             sx={{ color: dominantColor }}
             href="https://existentialis.me/@hegel"
+            _target="blank"
           >
             @hegel@existentialis.me
           </Link>
