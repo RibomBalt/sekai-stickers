@@ -5,32 +5,20 @@ import characters from "./characters.json";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Switch from "@mui/material/Switch";
 import Picker from "./components/Picker";
 import Info from "./components/Info";
-import getConfiguration from "./utils/config";
-import log from "./utils/log";
-import { bannerViewed, setBannerViewed } from "./utils/banner";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import DownloadIcon from '@mui/icons-material/Download';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import InfoIcon from '@mui/icons-material/Info';
 
 const { ClipboardItem } = window;
 
 function App() {
-  const [config, setConfig] = useState(null);
-  const [bannerView, setBannerView] = useState(bannerViewed());
-
-  // using this to trigger the useEffect because lazy to think of a better way
-  const [rand, setRand] = useState(0);
-  useEffect(() => {
-    try {
-      const data = async () => {
-        const res = await getConfiguration();
-        setConfig(res);
-      };
-      data();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [rand]);
 
   const [infoOpen, setInfoOpen] = useState(false);
 
@@ -131,11 +119,9 @@ function App() {
   const download = async () => {
     const canvas = document.getElementsByTagName("canvas")[0];
     const link = document.createElement("a");
-    link.download = `${characters[character].name}_st.ayaka.one.png`;
+    link.download = `${characters[character].name}_prsk.erica.moe.png`;
     link.href = canvas.toDataURL();
     link.click();
-    await log(characters[character].id, characters[character].name, "download");
-    setRand(rand + 1);
   };
 
   function b64toBlob(b64Data, contentType = null, sliceSize = null) {
@@ -162,45 +148,23 @@ function App() {
         "image/png": b64toBlob(canvas.toDataURL().split(",")[1]),
       }),
     ]);
-    await log(characters[character].id, characters[character].name, "copy");
-    setRand(rand + 1);
   };
 
   return (
     <div className="App">
-      <Info open={infoOpen} handleClose={handleClose} config={config} />
-      {!bannerView && (
-        <div className="bannercontainer">
-          <div className="bannermessage">
-            <p>New Sekai Stickers mobile app is coming soon</p>
-            <a
-              href="https://link.ayaka.one/boM9XJ"
-              className="bannerbutton"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Learn more <span>&rarr;</span>
-            </a>
-          </div>
-          <div className="bannerdismiss">
-            <button
-              type="button"
-              onClick={() => {
-                setBannerViewed();
-                setBannerView(true);
-              }}
-            >
-              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="counter">
-        Total Stickers you made: {config?.total || "Not available"}
-      </div>
+      <Info open={infoOpen} handleClose={handleClose} />
       <div className="container">
+        <Typography variant="h3" style={{ "font-family": "YurukaStd" }}>
+          Project Sekai Stickers Generator
+        </Typography>
+        <Typography variant="subtitle1" style={{ "font-family": "YurukaStd" }} gutterBottom>
+          Created by <Link color="secondary" href="https://github.com/theoriginalayaka">TheOriginalAyaka</Link>
+          <IconButton aria-label="info" onClick={handleClickOpen} size="small">
+            <InfoIcon fontSize="small" />
+          </IconButton>,
+          mirrored by <Link color="secondary" href="https://existentialis.me/@hegel">@hegel@existentialis.me</Link>.
+        </Typography>
+        <div style={{ "height": "1em" }} />
         <div className="vertical">
           <div className="canvas">
             <Canvas draw={draw} />
@@ -232,6 +196,7 @@ function App() {
             track={false}
             color="secondary"
           />
+          <Picker setCharacter={setCharacter} />
           <div className="settings">
             <div>
               <label>Rotate: </label>
@@ -293,22 +258,17 @@ function App() {
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <div className="picker">
-            <Picker setCharacter={setCharacter} />
-          </div>
-          <div className="buttons">
-            <Button color="secondary" onClick={copy}>
+          <div style={{ "height": "2em" }} />
+          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+            <Button variant="outlined" color="secondary" onClick={copy} startIcon={<ContentCopyIcon />}>
               copy
             </Button>
-            <Button color="secondary" onClick={download}>
+            <Button variant="contained" color="secondary" onClick={download} startIcon={<DownloadIcon />}>
               download
             </Button>
-          </div>
-        </div>
-        <div className="footer">
-          <Button color="secondary" onClick={handleClickOpen}>
-            Info
-          </Button>
+          </ButtonGroup>
+
+
         </div>
       </div>
     </div>
