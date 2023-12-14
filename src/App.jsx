@@ -18,6 +18,7 @@ import {
   KeyboardArrowDown,
   ContentCopyTwoTone,
   DownloadTwoTone,
+  ShareTwoTone,
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { FastAverageColor } from "fast-average-color";
@@ -475,6 +476,7 @@ function AltApp() {
               />
             </Grid>
             <Grid item xs={10}>
+              <div style={{ height: "0.5rem" }} />
               <TextField
                 label="(multiline) text"
                 size="small"
@@ -487,17 +489,7 @@ function AltApp() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          item
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Divider sx={{ width: "80%" }} />
-        </Grid>
-
+        <div style={{ height: "10px" }} />
         <Grid
           xs={12}
           item
@@ -526,8 +518,34 @@ function AltApp() {
             >
               download
             </Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                const files = new Array(img);
+                if (navigator.canShare({ files })) {
+                  try {
+                    navigator.share({
+                      files,
+                      title: "My PRSK sticker!",
+                      text: "Make your own PRSK sticker!",
+                      url: "https://prsk.erica.moe/",
+                    });
+                  } catch (error) {
+                    alert(`Error: ${error.message}`);
+                  }
+                } else {
+                  alert(`Your system doesn't support sharing these files.`);
+                }
+              }}
+              startIcon={<ShareTwoTone />}
+              style={{ "font-family": "YurukaStd" }}
+              sx={{ color: dominantColor }}
+            >
+              share
+            </Button>
           </ButtonGroup>
         </Grid>
+        <div style={{ height: "10px" }} />
         <Snackbar
           open={copyPopupOpen}
           autoHideDuration={2000}
