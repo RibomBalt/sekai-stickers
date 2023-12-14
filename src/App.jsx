@@ -28,7 +28,7 @@ import Picker from "./components/Picker";
 import Info from "./components/Info";
 const { ClipboardItem } = window;
 
-function AltApp() {
+function App() {
   const [infoOpen, setInfoOpen] = useState(false);
   const [copyPopupOpen, setCopyPopupOpen] = useState(false);
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
@@ -565,4 +565,4 @@ function AltApp() {
   );
 }
 
-export default AltApp;
+export default App;
