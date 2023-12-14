@@ -5,21 +5,23 @@ import characters from "./characters.json";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Switch from "@mui/material/Switch";
 import Picker from "./components/Picker";
 import Info from "./components/Info";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import DownloadIcon from "@mui/icons-material/Download";
+import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
+import DownloadTwoToneIcon from "@mui/icons-material/DownloadTwoTone";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import InfoIcon from "@mui/icons-material/Info";
-
+import Snackbar from "@mui/material/Snackbar";
+import { FastAverageColor } from "fast-average-color";
 const { ClipboardItem } = window;
 
 function App() {
   const [infoOpen, setInfoOpen] = useState(false);
+  const [copyPopupOpen, setCopyPopupOpen] = useState(false);
+  const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
+  const [dominantColor, setDominantColor] = useState("#3f50b5");
 
   const handleClickOpen = () => {
     setInfoOpen(true);
@@ -56,6 +58,8 @@ function App() {
   img.src = "/img/" + characters[character].img;
 
   img.onload = () => {
+    const fac = new FastAverageColor();
+    setDominantColor(fac.getColor(img, { algorithm: "simple" }).hex);
     setLoaded(true);
   };
 
@@ -121,6 +125,7 @@ function App() {
     link.download = `${characters[character].name}_prsk.erica.moe.png`;
     link.href = canvas.toDataURL();
     link.click();
+    setDownloadPopupOpen(true);
   };
 
   function b64toBlob(b64Data, contentType = null, sliceSize = null) {
@@ -147,6 +152,7 @@ function App() {
         "image/png": b64toBlob(canvas.toDataURL().split(",")[1]),
       }),
     ]);
+    setCopyPopupOpen(true);
   };
 
   return (
@@ -154,22 +160,22 @@ function App() {
       <Info open={infoOpen} handleClose={handleClose} />
       <div className="container">
         <Typography variant="h3" style={{ "font-family": "YurukaStd" }}>
-          Project Sekai Stickers Generator
+          Project Sekai Stickers Maker
         </Typography>
-        <Typography
-          variant="subtitle1"
-          style={{ "font-family": "YurukaStd" }}
-          gutterBottom
-        >
+        <Typography variant="subtitle1" gutterBottom>
           Created by{" "}
-          <Link color="secondary" href="https://github.com/theoriginalayaka">
-            TheOriginalAyaka
+          <Link
+            sx={{ color: dominantColor }}
+            onClick={handleClickOpen}
+            href="#"
+          >
+            TheOriginalAyaka and others
           </Link>
-          <IconButton aria-label="info" onClick={handleClickOpen} size="small">
-            <InfoIcon fontSize="small" />
-          </IconButton>
           , mirrored by{" "}
-          <Link color="secondary" href="https://existentialis.me/@hegel">
+          <Link
+            sx={{ color: dominantColor }}
+            href="https://existentialis.me/@hegel"
+          >
             @hegel@existentialis.me
           </Link>
           .
@@ -192,7 +198,8 @@ function App() {
             step={1}
             orientation="vertical"
             track={false}
-            color="secondary"
+            sx={{ color: dominantColor }}
+            size="small"
           />
         </div>
         <div className="horizontal">
@@ -204,12 +211,13 @@ function App() {
             max={296}
             step={1}
             track={false}
-            color="secondary"
+            sx={{ color: dominantColor }}
+            size="small"
           />
-          <Picker setCharacter={setCharacter} />
+          <Picker setCharacter={setCharacter} color={dominantColor} />
           <div className="settings">
             <div>
-              <label>Rotate: </label>
+              <label>Rotation: </label>
               <Slider
                 value={rotate}
                 onChange={(e, v) => setRotate(v)}
@@ -217,7 +225,7 @@ function App() {
                 max={10}
                 step={0.2}
                 track={false}
-                color="secondary"
+                sx={{ color: dominantColor }}
               />
             </div>
             <div>
@@ -231,12 +239,12 @@ function App() {
                 max={100}
                 step={1}
                 track={false}
-                color="secondary"
+                sx={{ color: dominantColor }}
               />
             </div>
             <div>
               <label>
-                <nobr>Spacing: </nobr>
+                <nobr>Line spacing: </nobr>
               </label>
               <Slider
                 value={spaceSize}
@@ -245,7 +253,7 @@ function App() {
                 max={100}
                 step={1}
                 track={false}
-                color="secondary"
+                sx={{ color: dominantColor }}
               />
             </div>
             <div>
@@ -253,46 +261,58 @@ function App() {
               <Switch
                 checked={curve}
                 onChange={(e) => setCurve(e.target.checked)}
-                color="secondary"
+                sx={{ color: dominantColor }}
               />
             </div>
           </div>
           <div className="text">
             <TextField
-              label="Text"
+              label="(multiline) text"
               size="small"
-              color="secondary"
+              sx={{ color: dominantColor }}
               value={text}
               multiline={true}
               fullWidth
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <div style={{ height: "2em" }} />
-          <ButtonGroup
-            color="secondary"
-            variant="contained"
-            aria-label="outlined primary button group"
-          >
+          <div style={{ height: "1rem" }} />
+          <ButtonGroup size="large">
             <Button
               variant="outlined"
-              color="secondary"
               onClick={copy}
-              startIcon={<ContentCopyIcon />}
+              startIcon={<ContentCopyTwoToneIcon />}
+              style={{ "font-family": "YurukaStd" }}
+              sx={{ color: dominantColor }}
             >
               copy
             </Button>
             <Button
-              variant="contained"
-              color="secondary"
+              variant="outlined"
               onClick={download}
-              startIcon={<DownloadIcon />}
+              startIcon={<DownloadTwoToneIcon />}
+              style={{ "font-family": "YurukaStd" }}
+              sx={{ color: dominantColor }}
             >
               download
             </Button>
           </ButtonGroup>
         </div>
       </div>
+      <Snackbar
+        open={copyPopupOpen}
+        autoHideDuration={2000}
+        onClose={() => setCopyPopupOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message="Copied image to clipboard"
+      />
+      <Snackbar
+        open={downloadPopupOpen}
+        autoHideDuration={2000}
+        onClose={() => setDownloadPopupOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        message="Downlading image..."
+      />
     </div>
   );
 }

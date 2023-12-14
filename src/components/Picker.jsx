@@ -8,7 +8,7 @@ import {
 import { useState, useMemo } from "react";
 import characters from "../characters.json";
 
-export default function Picker({ setCharacter }) {
+export default function Picker({ setCharacter, color }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [search, setSearch] = useState("");
 
@@ -70,6 +70,9 @@ export default function Picker({ setCharacter }) {
         variant="contained"
         color="secondary"
         onClick={handleClick}
+        style={{ "font-family": "YurukaStd" }}
+        sx={{ color: color }}
+        size="small"
       >
         Pick character
       </Button>
