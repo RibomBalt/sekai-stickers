@@ -1,23 +1,33 @@
-import "./App.css";
-import Canvas from "./components/Canvas";
+import {
+  Typography,
+  Unstable_Grid2 as Grid,
+  Link,
+  Slider,
+  TextField,
+  Button,
+  ButtonGroup,
+  Switch,
+  Snackbar,
+  Tooltip,
+  Divider,
+} from "@mui/material";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  KeyboardArrowUp,
+  KeyboardArrowDown,
+  ContentCopyTwoTone,
+  DownloadTwoTone,
+} from "@mui/icons-material";
 import { useState, useEffect } from "react";
+import { FastAverageColor } from "fast-average-color";
 import characters from "./characters.json";
-import Slider from "@mui/material/Slider";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Switch from "@mui/material/Switch";
+import Canvas from "./components/Canvas";
 import Picker from "./components/Picker";
 import Info from "./components/Info";
-import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
-import DownloadTwoToneIcon from "@mui/icons-material/DownloadTwoTone";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Snackbar from "@mui/material/Snackbar";
-import { FastAverageColor } from "fast-average-color";
 const { ClipboardItem } = window;
 
-function App() {
+function AltApp() {
   const [infoOpen, setInfoOpen] = useState(false);
   const [copyPopupOpen, setCopyPopupOpen] = useState(false);
   const [downloadPopupOpen, setDownloadPopupOpen] = useState(false);
@@ -124,7 +134,7 @@ function App() {
       ctx.fillStyle = "white";
       ctx.textAlign = "center";
       ctx.fillText(
-        "Pick a character 👇 to start",
+        "Pick a character to start ↘️",
         ctx.canvas.width / 2,
         ctx.canvas.height - 10,
       );
@@ -168,69 +178,212 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Info open={infoOpen} handleClose={handleClose} />
-      <div className="container">
-        <Typography variant="h3" style={{ "font-family": "YurukaStd" }}>
-          Project Sekai Stickers Maker
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          Created by{" "}
-          <Link
-            sx={{ color: dominantColor }}
-            onClick={handleClickOpen}
-            href="#"
+    <>
+      <Grid
+        container
+        disableEqualOverflow
+        direction="column"
+        justifyContent="space-evenly" // TODO
+        sx={{ height: "100vh", width: "100vw" }}
+      >
+        <Grid justifyContent="center">
+          <Typography
+            variant="h3"
+            align="center"
+            sx={{ fontFamily: "YurukaStd" }}
           >
-            Ayaka and others
-          </Link>
-          , mirrored by{" "}
-          <Link
-            sx={{ color: dominantColor }}
-            href="https://existentialis.me/@hegel"
-            _target="blank"
+            Project Sekai Stickers Maker
+          </Typography>
+          <Typography variant="subtitle1" align="center">
+            Created by{" "}
+            <Link
+              sx={{ color: dominantColor }}
+              onClick={handleClickOpen}
+              href="#"
+            >
+              Ayaka and others
+            </Link>
+            , tweaked by{" "}
+            <Link
+              sx={{ color: dominantColor }}
+              href="https://existentialis.me/@hegel"
+              target="_blank"
+            >
+              @hegel@existentialis.me
+            </Link>
+            .
+          </Typography>
+        </Grid>
+        <Grid container sx={12} justifyContent="space-evenly">
+          <Grid container direction="column" xs={12} sm={7} md={4}>
+            <Grid container>
+              <Grid
+                container
+                xs={10}
+                justifyContent="space-evenly"
+                alignItems="space-evenly"
+              >
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Canvas
+                    draw={draw}
+                    style={{
+                      border: "1px solid #eeeeee",
+                      "border-radius": "10px",
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                justifyContent="start"
+                alignItems="center"
+                direction="column"
+                xs={2}
+              >
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <KeyboardArrowUp />
+                </Grid>
+                <Grid
+                  sx={{
+                    height: "80%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Tooltip title="move text vertically" placement="right">
+                    <Slider
+                      value={
+                        curve
+                          ? 256 - position.y + fontSize * 3
+                          : 256 - position.y
+                      }
+                      onChange={(e, v) =>
+                        setPosition({
+                          ...position,
+                          y: curve ? 256 + fontSize * 3 - v : 256 - v,
+                        })
+                      }
+                      min={0}
+                      max={256}
+                      step={1}
+                      orientation="vertical"
+                      track={false}
+                      sx={{ color: dominantColor }}
+                      size="small"
+                    />
+                  </Tooltip>
+                </Grid>
+                <Grid
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <KeyboardArrowDown />
+                </Grid>
+              </Grid>
+              <Grid
+                xs={1}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <KeyboardArrowLeft />
+              </Grid>
+              <Grid
+                xs={8}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Tooltip title="move text horizontally">
+                  <Slider
+                    value={position.x}
+                    onChange={(e, v) => setPosition({ ...position, x: v })}
+                    min={0}
+                    max={296}
+                    step={1}
+                    track={false}
+                    sx={{ color: dominantColor }}
+                    size="small"
+                  />
+                </Tooltip>
+              </Grid>
+              <Grid
+                xs={1}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <KeyboardArrowRight />
+              </Grid>
+              <Grid
+                xs={2}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Picker setCharacter={setCharacter} color={dominantColor} />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid
+            sm={0}
+            md={0.5}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            @hegel@existentialis.me
-          </Link>
-          .
-        </Typography>
-        <div style={{ height: "1em" }} />
-        <div className="vertical">
-          <div className="canvas">
-            <Canvas draw={draw} />
-          </div>
-          <Slider
-            value={curve ? 256 - position.y + fontSize * 3 : 256 - position.y}
-            onChange={(e, v) =>
-              setPosition({
-                ...position,
-                y: curve ? 256 + fontSize * 3 - v : 256 - v,
-              })
-            }
-            min={0}
-            max={256}
-            step={1}
-            orientation="vertical"
-            track={false}
-            sx={{ color: dominantColor }}
-            size="small"
-          />
-        </div>
-        <div className="horizontal">
-          <Slider
-            className="slider-horizontal"
-            value={position.x}
-            onChange={(e, v) => setPosition({ ...position, x: v })}
-            min={0}
-            max={296}
-            step={1}
-            track={false}
-            sx={{ color: dominantColor }}
-            size="small"
-          />
-          <Picker setCharacter={setCharacter} color={dominantColor} />
-          <div className="settings">
-            <div>
-              <label>Rotation: </label>
+            <Divider orientation="vertical" />
+          </Grid>
+          <Grid
+            container
+            xs={12}
+            sm={5}
+            md={6}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Grid
+              item
+              xs={10}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontFamily="YurukaStd"
+                sx={{ flexBasis: "60%" }}
+              >
+                Rotation
+              </Typography>
               <Slider
                 value={rotate}
                 onChange={(e, v) => setRotate(v)}
@@ -240,11 +393,23 @@ function App() {
                 track={false}
                 sx={{ color: dominantColor }}
               />
-            </div>
-            <div>
-              <label>
-                <nobr>Font size: </nobr>
-              </label>
+            </Grid>
+            <Grid
+              item
+              xs={10}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontFamily="YurukaStd"
+                sx={{ flexBasis: "60%" }}
+              >
+                Font size
+              </Typography>
               <Slider
                 value={fontSize}
                 onChange={(e, v) => setFontSize(v)}
@@ -254,11 +419,23 @@ function App() {
                 track={false}
                 sx={{ color: dominantColor }}
               />
-            </div>
-            <div>
-              <label>
-                <nobr>Line spacing: </nobr>
-              </label>
+            </Grid>
+            <Grid
+              item
+              xs={10}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontFamily="YurukaStd"
+                sx={{ flexBasis: "60%" }}
+              >
+                Line spacing
+              </Typography>
               <Slider
                 value={spaceSize}
                 onChange={(e, v) => setSpaceSize(v)}
@@ -268,9 +445,23 @@ function App() {
                 track={false}
                 sx={{ color: dominantColor }}
               />
-            </div>
-            <div>
-              <label>Curve (Beta): </label>
+            </Grid>
+            <Grid
+              item
+              xs={10}
+              sx={{
+                display: "flex",
+                justifyContent: "left",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontFamily="YurukaStd"
+                sx={{ flexBasis: "60%" }}
+              >
+                Curved text?
+              </Typography>
               <Switch
                 checked={curve}
                 onChange={(e) => {
@@ -282,25 +473,45 @@ function App() {
                 }}
                 sx={{ color: dominantColor }}
               />
-            </div>
-          </div>
-          <div className="text">
-            <TextField
-              label="(multiline) text"
-              size="small"
-              sx={{ color: dominantColor }}
-              value={text}
-              multiline={true}
-              fullWidth
-              onChange={(e) => setText(e.target.value)}
-            />
-          </div>
-          <div style={{ height: "1rem" }} />
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                label="(multiline) text"
+                size="small"
+                sx={{ color: dominantColor }}
+                value={text}
+                multiline={true}
+                fullWidth
+                onChange={(e) => setText(e.target.value)}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid
+          item
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Divider sx={{ width: "80%" }} />
+        </Grid>
+
+        <Grid
+          xs={12}
+          item
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <ButtonGroup size="large">
             <Button
               variant="outlined"
               onClick={copy}
-              startIcon={<ContentCopyTwoToneIcon />}
+              startIcon={<ContentCopyTwoTone />}
               style={{ "font-family": "YurukaStd" }}
               sx={{ color: dominantColor }}
             >
@@ -309,31 +520,31 @@ function App() {
             <Button
               variant="outlined"
               onClick={download}
-              startIcon={<DownloadTwoToneIcon />}
+              startIcon={<DownloadTwoTone />}
               style={{ "font-family": "YurukaStd" }}
               sx={{ color: dominantColor }}
             >
               download
             </Button>
           </ButtonGroup>
-        </div>
-      </div>
-      <Snackbar
-        open={copyPopupOpen}
-        autoHideDuration={2000}
-        onClose={() => setCopyPopupOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        message="Copied image to clipboard"
-      />
-      <Snackbar
-        open={downloadPopupOpen}
-        autoHideDuration={2000}
-        onClose={() => setDownloadPopupOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        message="Downlading image..."
-      />
-    </div>
+        </Grid>
+        <Snackbar
+          open={copyPopupOpen}
+          autoHideDuration={2000}
+          onClose={() => setCopyPopupOpen(false)}
+          message="Copied image to clipboard"
+        />
+
+        <Snackbar
+          open={downloadPopupOpen}
+          autoHideDuration={2000}
+          onClose={() => setDownloadPopupOpen(false)}
+          message="Downlading image..."
+        />
+      </Grid>
+      <Info open={infoOpen} handleClose={handleClose} />
+    </>
   );
 }
 
-export default App;
+export default AltApp;

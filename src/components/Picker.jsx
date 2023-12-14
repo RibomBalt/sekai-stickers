@@ -2,11 +2,13 @@ import {
   ImageList,
   ImageListItem,
   Popover,
-  Button,
   TextField,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 import { useState, useMemo } from "react";
 import characters from "../characters.json";
+import { PersonSearch } from "@mui/icons-material";
 
 export default function Picker({ setCharacter, color }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -65,17 +67,19 @@ export default function Picker({ setCharacter, color }) {
 
   return (
     <div>
-      <Button
-        aria-describedby={id}
-        variant="contained"
-        color="secondary"
-        onClick={handleClick}
-        style={{ "font-family": "YurukaStd" }}
-        sx={{ color: color }}
-        size="small"
-      >
-        Pick character
-      </Button>
+      <Tooltip title="Pick character">
+        <IconButton
+          aria-describedby={id}
+          color="secondary"
+          onClick={handleClick}
+          style={{ "font-family": "YurukaStd" }}
+          sx={{ color: color }}
+          size="small"
+        >
+          <PersonSearch />
+        </IconButton>
+      </Tooltip>
+
       <Popover
         id={id}
         open={open}
