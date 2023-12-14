@@ -184,7 +184,7 @@ function AltApp() {
         disableEqualOverflow
         direction="column"
         justifyContent="space-evenly" // TODO
-        sx={{ height: "100vh", width: "100vw" }}
+        sx={{ "min-height": "100vh", width: "100vw" }}
       >
         <Grid justifyContent="center">
           <Typography
