@@ -169,7 +169,7 @@ function App() {
             onClick={handleClickOpen}
             href="#"
           >
-            TheOriginalAyaka and others
+            Ayaka and others
           </Link>
           , mirrored by{" "}
           <Link
