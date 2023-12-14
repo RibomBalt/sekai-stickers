@@ -53,7 +53,7 @@
 
 <br />
 <p align="center">
-  <img src="https://github.com/BedrockDigger/sekai-stickers/blob/main/public/screenshot_new.png?raw=true">
+  <img src="https://github.com/BedrockDigger/sekai-stickers/blob/main/public/screenshot_new_new.png?raw=true">
 </p>
 
 ## 🔐 》License
