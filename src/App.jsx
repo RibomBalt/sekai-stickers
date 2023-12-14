@@ -260,7 +260,13 @@ function App() {
               <label>Curve (Beta): </label>
               <Switch
                 checked={curve}
-                onChange={(e) => setCurve(e.target.checked)}
+                onChange={(e) => {
+                  setCurve(e.target.checked);
+                  setPosition({
+                    x: 100,
+                    y: 150,
+                  });
+                }}
                 sx={{ color: dominantColor }}
               />
             </div>
