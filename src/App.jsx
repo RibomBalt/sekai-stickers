@@ -116,6 +116,14 @@ function App() {
         }
         ctx.restore();
       }
+    } else {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.fillStyle = "#212121";
+      ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.font = "20px sans-serif";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
+      ctx.fillText("Pick a character 👇 to start", ctx.canvas.width / 2, ctx.canvas.height - 10);
     }
   };
 
