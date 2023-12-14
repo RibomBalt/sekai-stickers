@@ -53,7 +53,7 @@
 
 <br />
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TheOriginalAyaka/sekai-stickers/main/public/screenshot_new.png">
+  <img src="https://github.com/BedrockDigger/sekai-stickers/blob/main/public/screenshot_new.png?raw=true">
 </p>
 
 ## 🔐 》License
