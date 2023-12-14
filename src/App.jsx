@@ -518,7 +518,7 @@ function App() {
             >
               download
             </Button>
-            <Button
+            {/* <Button
               variant="outlined"
               onClick={() => {
                 const files = new Array(img);
@@ -542,7 +542,7 @@ function App() {
               sx={{ color: dominantColor }}
             >
               share
-            </Button>
+            </Button> */}
           </ButtonGroup>
         </Grid>
         <div style={{ height: "10px" }} />
