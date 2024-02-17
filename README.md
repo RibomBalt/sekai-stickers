@@ -1,3 +1,5 @@
+[![ci](https://github.com/BedrockDigger/sekai-stickers/actions/workflows/main.yml/badge.svg)](https://github.com/BedrockDigger/sekai-stickers/actions/workflows/main.yml)
+
 ## Note: This app is no longer maintained as I'm working on an upcoming app. Stay tuned for updates!
 
 [![Contributors][contributors-shield]][contributors-url]

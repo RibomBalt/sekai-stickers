@@ -11,6 +11,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY public package.json package-lock.json ./
 RUN npm install --silent
 RUN npm install react-scripts serve -g --silent
+RUN npm run build
 
 # add app
 COPY . ./
