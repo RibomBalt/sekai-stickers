@@ -19,6 +19,7 @@ import {
   ContentCopyTwoTone,
   DownloadTwoTone,
   ShareTwoTone,
+  GitHub,
 } from "@mui/icons-material";
 import { useState, useEffect } from "react";
 import { FastAverageColor } from "fast-average-color";
@@ -212,7 +213,14 @@ function App() {
             >
               @hegel@existentialis.me
             </Link>
-            .
+            . <Button
+              variant="outlined"
+              startIcon={<GitHub />}
+              href="https://github.com/BedrockDigger/sekai-stickers"
+              target="_blank"
+              sx={{ color: dominantColor }}
+              size="small"
+            >Star on GitHub</Button>
           </Typography>
         </Grid>
         <Grid container sx={12} justifyContent="space-evenly">
