@@ -7,8 +7,9 @@ const Canvas = (props) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    if (!canvas) return;
 
+    const context = canvas.getContext("2d");
     draw(context);
   }, [draw]);
 

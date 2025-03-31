@@ -6,7 +6,7 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import characters from "../characters.json";
 import { PersonSearch } from "@mui/icons-material";
 
@@ -14,19 +14,27 @@ export default function Picker({ setCharacter, color }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [search, setSearch] = useState("");
 
-  const handleClick = (event) => {
+  const handleClick = useCallback((event) => {
     setAnchorEl(event.currentTarget);
-  };
+  }, []);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "picker" : undefined;
 
-  // Memoize the filtered image list items to avoid recomputing them
-  // at every render
+  const handleCharacterSelect = useCallback((index) => {
+    handleClose();
+    setCharacter(index);
+  }, [handleClose, setCharacter]);
+
+  const handleSearchChange = useCallback((e) => {
+    setSearch(e.target.value);
+  }, []);
+
+  // Memoize the filtered image list items
   const memoizedImageListItems = useMemo(() => {
     const s = search.toLowerCase();
     return characters.map((c, index) => {
@@ -38,10 +46,7 @@ export default function Picker({ setCharacter, color }) {
         return (
           <ImageListItem
             key={index}
-            onClick={() => {
-              handleClose();
-              setCharacter(index);
-            }}
+            onClick={() => handleCharacterSelect(index)}
             sx={{
               cursor: "pointer",
               "&:hover": {
@@ -63,7 +68,7 @@ export default function Picker({ setCharacter, color }) {
       }
       return null;
     });
-  }, [search, setCharacter]);
+  }, [search, handleCharacterSelect]);
 
   return (
     <div>
@@ -72,7 +77,7 @@ export default function Picker({ setCharacter, color }) {
           aria-describedby={id}
           color="secondary"
           onClick={handleClick}
-          style={{ "font-family": "YurukaStd" }}
+          style={{ fontFamily: "YurukaStd" }}
           sx={{ color: color }}
           size="small"
         >
@@ -97,9 +102,9 @@ export default function Picker({ setCharacter, color }) {
             size="small"
             color="secondary"
             value={search}
-            multiline={true}
+            multiline
             fullWidth
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearchChange}
           />
         </div>
         <div className="image-grid-wrapper">
