@@ -106,7 +106,7 @@ function App() {
     setLoaded(false);
 
     const img = new Image();
-    img.src = "/img/" + characters[character].img;
+    img.src = "img/" + characters[character].img;
     img.onload = () => {
       const fac = new FastAverageColor();
       const color = fac.getColor(img, { algorithm: "sqrt" });
@@ -124,7 +124,7 @@ function App() {
 
     if (loaded && document.fonts.check("12px YurukaStd")) {
       const img = new Image();
-      img.src = "/img/" + characters[character].img;
+      img.src = "img/" + characters[character].img;
 
       const hRatio = ctx.canvas.width / img.width;
       const vRatio = ctx.canvas.height / img.height;
